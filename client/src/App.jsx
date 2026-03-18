@@ -75,11 +75,11 @@
 
 // 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import Dashboard from "./Pages/Dashboard";
-import Income from "./Pages/Income";
-import Expense from "./Pages/Expense";
+import Login from "./pages/Login";
+import Signup from "../pages/Signup";
+import Dashboard from "../pages/Dashboard";
+import Income from "./pages/Income";
+import Expense from "./pages/Expense";
 import { useState } from "react";
 
 function App() {
