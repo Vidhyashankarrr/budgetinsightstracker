@@ -1,3 +1,65 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Income from "./pages/Income";
+import Expense from "./pages/Expense";
+import { useState } from "react";
+
+
+
+function App() {
+  const isLoggedIn = localStorage.getItem("token");
+
+  const [transactions, setTransactions] = useState([]);
+
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
+      <Route
+        path="/"
+        element={
+          isLoggedIn ? (
+            <Dashboard
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      <Route
+        path="/income"
+        element={
+          <Income
+            transactions={transactions}
+            setTransactions={setTransactions}
+          />
+        }
+      />
+
+      <Route
+        path="/expense"
+        element={
+          <Expense
+            transactions={transactions}
+            setTransactions={setTransactions}
+          />
+        }
+      />
+    </Routes>
+  );
+}
+
+export default App;
+
+
+
+
 // import { useState, useEffect } from "react";
 // import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -74,61 +136,3 @@
 
 
 // 
-import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
-import Income from "./pages/Income";
-import Expense from "./pages/Expense";
-import { useState } from "react";
-
-
-
-function App() {
-  const isLoggedIn = localStorage.getItem("token");
-
-  const [transactions, setTransactions] = useState([]);
-
-  return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-
-      <Route
-        path="/"
-        element={
-          isLoggedIn ? (
-            <Dashboard
-              transactions={transactions}
-              setTransactions={setTransactions}
-            />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-
-      <Route
-        path="/income"
-        element={
-          <Income
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
-        }
-      />
-
-      <Route
-        path="/expense"
-        element={
-          <Expense
-            transactions={transactions}
-            setTransactions={setTransactions}
-          />
-        }
-      />
-    </Routes>
-  );
-}
-
-export default App;

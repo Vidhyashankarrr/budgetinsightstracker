@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   const handleSignup = async () => {
-    // ✅ Validation
+    //  Validation
     if (!name || !email || !password) {
       return alert("All fields are required");
     }
@@ -61,7 +61,7 @@ const Signup = () => {
           Signup
         </button>
 
-        {/* ✅ Redirect to Login */}
+        {/* Redirect to Login */}
         <p className="text-sm mt-4 text-center">
           Already have an account?{" "}
           <span
