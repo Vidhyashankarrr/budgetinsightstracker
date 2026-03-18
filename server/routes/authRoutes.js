@@ -13,12 +13,14 @@
 const express = require("express");
 const router = express.Router();
 
+// ✅ IMPORT CONTROLLERS (VERY IMPORTANT)
 const {
-  signupUser,
+  registerUser,
   loginUser,
 } = require("../controllers/authController");
 
-router.post("/signup", signupUser);
+// ✅ ROUTES
+router.post("/signup", registerUser);
 router.post("/login", loginUser);
 
 module.exports = router;

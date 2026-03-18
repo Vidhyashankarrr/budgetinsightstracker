@@ -34,7 +34,7 @@ Charts	Chart.js / Recharts
 
 State Management	React Hooks
 
-Storage	LocalStorage
+
 
 Routing	React Router DOM
 
@@ -136,9 +136,8 @@ Bar Chart – Income vs Expense comparison
 Line Chart – Spending trend over time
 
 5. Data Handling
-Local Storage
 
-All transactions are stored using LocalStorage
+
 
 Data persists even after page refresh
 
@@ -180,7 +179,7 @@ The application uses React Hooks:
 
 useState – Manage transactions, budget, filters
 
-useEffect – Sync data with LocalStorage
+
 
 useMemo – Optimize calculations (totals, charts)
 

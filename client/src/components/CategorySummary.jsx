@@ -9,7 +9,7 @@ const CategorySummary = ({ transactions }) => {
   });
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm">
+   <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-6 rounded-2xl shadow">
       <h3 className="font-semibold mb-4">Expense by Category</h3>
 
       {Object.keys(summary).map((cat) => (
