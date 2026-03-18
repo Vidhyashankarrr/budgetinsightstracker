@@ -1,13 +1,13 @@
 📊 Budget Insights & Expense Tracker
 🔗 Live Demo
 
-https://miniproject-budget-buddy.vercel.app/
+https://budgetinsightstracker-hbq3.vercel.app/login
 
 🔗 Project Links
 
-Frontend Repository: https://github.com/Vidhyashankarrr/budget-buddy-frontend
+Frontend hostedlink: https://budgetinsightstracker-hbq3.vercel.app/login
 
-Backend Repository: https://github.com/Vidhyashankarrr/budget-buddy-backend
+Backend hostedlink: https://budgetinsightstracker-8hho.vercel.app/
 
 1. Project Overview
 
