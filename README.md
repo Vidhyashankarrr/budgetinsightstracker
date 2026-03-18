@@ -1,6 +1,13 @@
-# Title: 📊 Budget Insights & Expense Tracker
-## 🔗 Live Demo
-[https://miniproject-budget-buddy.vercel.app/]
+📊 Budget Insights & Expense Tracker
+🔗 Live Demo
+
+https://miniproject-budget-buddy.vercel.app/
+
+🔗 Project Links
+
+Frontend Repository: https://github.com/Vidhyashankarrr/budget-buddy-frontend
+
+Backend Repository: https://github.com/Vidhyashankarrr/budget-buddy-backend
 
 1. Project Overview
 
@@ -25,25 +32,17 @@ Store data locally for persistence
 
 3. Technology Stack
 Category	Technology
-
 Frontend	React (Vite)
-
 Styling	Tailwind CSS
-
 Charts	Chart.js / Recharts
-
 State Management	React Hooks
-
-
-
 Routing	React Router DOM
-
+Backend	Node.js, Express.js
+Database	MongoDB
 4. Core Features
 4.1 Dashboard
 
-The dashboard provides an overview of the user’s financial status.
-
-Includes:
+The dashboard provides an overview of the user’s financial status and includes:
 
 Total Balance
 
@@ -63,13 +62,7 @@ Visual charts
 
 Add income transactions using a form
 
-Specify:
-
-Title
-
-Amount
-
-Category
+Specify: Title, Amount, Category
 
 Automatically updates total income and balance
 
@@ -77,17 +70,7 @@ Automatically updates total income and balance
 
 Add expense transactions
 
-Categorize expenses:
-
-Food
-
-Transport
-
-Bills
-
-Entertainment
-
-Other
+Categorize expenses: Food, Transport, Bills, Entertainment, Other
 
 Automatically deducts from balance
 
@@ -97,37 +80,21 @@ Helps track spending habits
 
 Displays recent transactions
 
-Shows:
+Shows: Transaction title, Category, Amount (+ / −)
 
-Transaction title
-
-Category
-
-Amount (+ / −)
-
-Delete transactions
-
-
+Option to delete transactions
 
 4.5 Budget Tracking
 
 Set a monthly budget
 
-Displays:
-
-Total spent
-
-Remaining balance
-
-Progress bar
+Displays: Total spent, Remaining balance, Progress bar
 
 Shows warning when budget limit is exceeded
 
 4.6 Visual Analytics
 
-Charts provide clear insights into financial data.
-
-Charts Used:
+Charts provide clear insights into financial data:
 
 Pie Chart – Expense category distribution
 
@@ -137,49 +104,35 @@ Line Chart – Spending trend over time
 
 5. Data Handling
 
-
-
 Data persists even after page refresh
 
-No backend required
+Backend (MongoDB) stores all transactions
+
+No data loss on server restart
 
 6. Application Structure
 src/
 │
 ├── components/
-
 │   ├── Sidebar.jsx
-
 │   ├── SummaryCards.jsx
-
 │   ├── AddTransaction.jsx
-
 │   ├── RecentTransactions.jsx
-
 │   ├── Charts.jsx
-
 │   ├── BudgetTracker.jsx
 │
 ├── pages/
-
 │   ├── Dashboard.jsx
-
 │   ├── Income.jsx
-
 │   ├── Expense.jsx
-
 │
 ├── App.jsx
-
 ├── main.jsx
-
-8. State Management
+7. State Management
 
 The application uses React Hooks:
 
 useState – Manage transactions, budget, filters
-
-
 
 useMemo – Optimize calculations (totals, charts)
 
@@ -210,7 +163,4 @@ User authentication
 10. Conclusion
 
 The Budget Insights & Expense Tracker is a practical financial management application that helps users understand and control their spending.
-It demonstrates skills in React, state management, component design, chart visualization, and UI development, making it suitable for academic projects and portfolio showcase.
-
-
 
