@@ -75,7 +75,7 @@
 
 // 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login.jsx";
+import Login from "../pages/Login";
 import Signup from "../pages/Signup.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Income from "./pages/Income.jsx";
