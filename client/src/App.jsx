@@ -81,6 +81,7 @@ import Dashboard from "./pages/Dashboard";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import { useState } from "react";
+import App from "./App.jsx";
 
 
 function App() {
