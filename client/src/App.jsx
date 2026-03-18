@@ -75,12 +75,13 @@
 
 // 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "../pages/Signup";
-import Dashboard from "../pages/Dashboard";
-import Income from "./pages/Income";
-import Expense from "./pages/Expense";
+import Login from "./pages/Login.jsx";
+import Signup from "../pages/Signup.jsx";
+import Dashboard from "../pages/Dashboard.jsx";
+import Income from "./pages/Income.jsx";
+import Expense from "./pages/Expense.jsx";
 import { useState } from "react";
+
 
 function App() {
   const isLoggedIn = localStorage.getItem("token");
