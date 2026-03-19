@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../axios/axios";
+
 
 const AddTransaction = ({ transactions = [], setTransactions, fixedType }) => {
   const [category, setCategory] = useState("Food");
@@ -11,7 +13,6 @@ const AddTransaction = ({ transactions = [], setTransactions, fixedType }) => {
 
     const token = localStorage.getItem("token");
 
-   
     if (!token) {
       alert("You are not logged in. Please login first.");
       return navigate("/login");
@@ -25,40 +26,29 @@ const AddTransaction = ({ transactions = [], setTransactions, fixedType }) => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/transactions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
-        },
-        body: JSON.stringify(newTransaction),
-      });
+      // ✅ axios instead of fetch
+      const res = await axiosInstance.post("/transactions", newTransaction);
 
-      // 
-      if (res.status === 401) {
-        localStorage.clear();
-        alert("Session expired. Please login again.");
-        return navigate("/login");
-      }
+      const data = res.data;
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to add transaction");
-      }
-
-      const data = await res.json();
-
-      //  Update UI 
+      // ✅ Update UI instantly
       setTransactions([data, ...transactions]);
 
-      //  Reset form
+      // ✅ Reset form
       e.target.reset();
       setCategory("Food");
       setType(fixedType || "expense");
 
     } catch (err) {
       console.error("AddTransaction error:", err);
-      alert(err.message);
+
+      if (err.response && err.response.status === 401) {
+        localStorage.clear();
+        alert("Session expired. Please login again.");
+        navigate("/login");
+      } else {
+        alert(err.response?.data?.message || "Failed to add transaction");
+      }
     }
   };
 
@@ -122,6 +112,5 @@ const AddTransaction = ({ transactions = [], setTransactions, fixedType }) => {
 };
 
 export default AddTransaction;
-
 
 

@@ -1,14 +1,26 @@
+import axiosInstance from "../axios/axios";
+
+
 const RecentTransactions = ({ transactions, setTransactions }) => {
   const deleteTransaction = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/transactions/${id}`, {
-        method: "DELETE",
-      });
+      // axios delete
+      await axiosInstance.delete(`/transactions/${id}`);
 
+      //  update UI instantly
       const updated = transactions.filter((t) => t._id !== id);
       setTransactions(updated);
+
     } catch (err) {
       console.error("Delete failed", err);
+
+      if (err.response && err.response.status === 401) {
+        localStorage.clear();
+        alert("Session expired. Please login again.");
+        window.location.href = "/login";
+      } else {
+        alert("Failed to delete transaction");
+      }
     }
   };
 

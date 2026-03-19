@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import axiosInstance from "../axios/axios";
+
 
 const BudgetTracker = ({ transactions, userId }) => {
   const [budget, setBudget] = useState(
@@ -14,16 +16,16 @@ const BudgetTracker = ({ transactions, userId }) => {
   const balance = budget - expense;
   const isExceeded = budget > 0 && expense > budget;
 
-  // Fetch budget from backend on mount
+  // ✅ Fetch budget from backend
   useEffect(() => {
     const fetchBudget = async () => {
-      if (!userId) return; // skip if no userId
+      if (!userId) return;
 
       try {
-        const res = await fetch(`http://localhost:5000/api/budget/${userId}`);
-        if (!res.ok) throw new Error("Failed to fetch budget");
-        const data = await res.json();
-        if (data.budget) setBudget(Number(data.budget));
+        const res = await axiosInstance.get(`/budget/${userId}`);
+        if (res.data?.budget) {
+          setBudget(Number(res.data.budget));
+        }
       } catch (err) {
         console.warn("Backend fetch failed, using localStorage", err);
       }
@@ -32,21 +34,21 @@ const BudgetTracker = ({ transactions, userId }) => {
     fetchBudget();
   }, [userId]);
 
-  // Update backend & localStorage when budget changes
+  // ✅ Update backend & localStorage
   const handleBudgetChange = async (e) => {
     const newBudget = Number(e.target.value);
     setBudget(newBudget);
     localStorage.setItem("budget", newBudget);
 
-    if (!userId) return; // skip backend if not logged in
+    if (!userId) return;
 
     try {
       setLoading(true);
-      await fetch(`http://localhost:5000/api/budget/${userId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ budget: newBudget }),
+
+      await axiosInstance.post(`/budget/${userId}`, {
+        budget: newBudget,
       });
+
     } catch (err) {
       console.warn("Failed to save budget to backend", err);
     } finally {
@@ -56,7 +58,9 @@ const BudgetTracker = ({ transactions, userId }) => {
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-xl max-w-md mx-auto space-y-4">
-      <h3 className="text-xl font-bold text-center text-purple-700">Monthly Budget</h3>
+      <h3 className="text-xl font-bold text-center text-purple-700">
+        Monthly Budget
+      </h3>
 
       <input
         type="number"
@@ -77,7 +81,11 @@ const BudgetTracker = ({ transactions, userId }) => {
           className={`h-3 rounded-full ${
             isExceeded ? "bg-red-500" : "bg-green-500"
           }`}
-          style={{ width: `${budget ? Math.min((expense / budget) * 100, 100) : 0}%` }}
+          style={{
+            width: `${
+              budget ? Math.min((expense / budget) * 100, 100) : 0
+            }%`,
+          }}
         />
       </div>
 
@@ -87,7 +95,9 @@ const BudgetTracker = ({ transactions, userId }) => {
         </p>
       )}
 
-      {loading && <p className="text-center text-gray-500">Saving...</p>}
+      {loading && (
+        <p className="text-center text-gray-500">Saving...</p>
+      )}
     </div>
   );
 };
