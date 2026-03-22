@@ -12,7 +12,8 @@ const SummaryCards = ({ transactions }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="bg-white shadow-xl rounded-2xl p-6 flex flex-col">
+      <div className=" shadow-xl rounded-2xl p-6 flex flex-col">
+        
         <p className="text-gray-400">Income</p>
         <h2 className="text-2xl font-bold text-green-500">₹{totalIncome}</h2>
       </div>

@@ -81,21 +81,24 @@
 
 
 
+// 
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axios/axios";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
       return alert("Please fill all fields");
     }
 
+    setIsLoading(true);
     try {
       const res = await axiosInstance.post("/auth/login", {
         email,
@@ -109,91 +112,136 @@ const Login = () => {
       window.location.reload();
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f4f6f8]">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        
-        {/* Logo / Title */}
-        <h1 className="text-center text-lg font-semibold text-gray-700 mb-6">
-          BUDGET BUDDY
-        </h1>
+    <div className="min-h-screen flex items-center justify-center bg-[#fcfdff] relative overflow-hidden px-4">
+      
+      {/* --- STRONGER BACKGROUND GLOWS --- */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Top Right - Purple Glow */}
+        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-200/40 rounded-full blur-[110px]"></div>
+        {/* Bottom Left - Indigo/Blue Glow */}
+        <div className="absolute bottom-[-10%] left-[-5%] w-[700px] h-[700px] bg-indigo-100/60 rounded-full blur-[130px]"></div>
+      </div>
 
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Welcome back
-        </h2>
-        <p className="text-sm text-gray-500 mb-6">
-          Enter your details to access your dashboard
-        </p>
+      <div className="w-full max-w-md relative z-10">
+        {/* THE "POP" CARD:
+            - shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]: Adds heavy lifting
+            - border-white/60: Adds a crisp edge
+            - bg-white: Clean solid white to contrast with soft background
+        */}
+        <div className="bg-white rounded-[3rem] p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-white/60">
+          
+          {/* Logo Section */}
+          <div className="flex flex-col items-center mb-10">
+            <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30 mb-4 transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+              <span className="text-3xl font-black text-white italic">B</span>
+            </div>
+            <h1 className="text-[10px] font-black tracking-[0.4em] text-gray-400 uppercase">
+              Budget Buddy
+            </h1>
+          </div>
 
-        {/* Email */}
-        <label className="text-xs text-gray-500">EMAIL ADDRESS</label>
-        <input
-          type="email"
-          placeholder="name@company.com"
-          className="w-full mt-1 mb-4 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <div className="mb-8">
+            <h2 className="text-3xl font-black text-gray-900 tracking-tight leading-tight">
+              Welcome back
+            </h2>
+            <p className="text-gray-500 mt-2 font-medium">
+              Log in to your precision dashboard
+            </p>
+          </div>
 
-        {/* Password */}
-        <div className="flex justify-between items-center">
-          <label className="text-xs text-gray-500">PASSWORD</label>
-          <span className="text-xs text-gray-400 cursor-pointer">
-            Forgot password?
-          </span>
+          <div className="space-y-6">
+            {/* Email Input */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">
+                Email Address
+              </label>
+              <input
+                type="email"
+                placeholder="name@company.com"
+                className="w-full px-5 py-4 rounded-2xl border-none bg-gray-50/80 focus:ring-2 focus:ring-purple-400 transition-all outline-none text-gray-700 shadow-inner"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            {/* Password Input */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between px-1">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+                  Password
+                </label>
+                <span className="text-[11px] font-bold text-purple-600 hover:text-purple-800 cursor-pointer uppercase tracking-widest transition-colors">
+                  Forgot?
+                </span>
+              </div>
+              <input
+                type="password"
+                placeholder="••••••••"
+                className="w-full px-5 py-4 rounded-2xl border-none bg-gray-50/80 focus:ring-2 focus:ring-purple-400 transition-all outline-none text-gray-700 shadow-inner"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            {/* Remember Me */}
+            <label className="flex items-center gap-3 cursor-pointer group w-fit ml-1">
+              <input 
+                type="checkbox" 
+                className="w-5 h-5 rounded-lg border-gray-200 text-purple-600 focus:ring-0 transition-all cursor-pointer accent-purple-600" 
+              />
+              <span className="text-sm text-gray-500 font-semibold group-hover:text-gray-800 transition-colors">
+                Remember me
+              </span>
+            </label>
+
+            {/* Login Button */}
+            <button
+              onClick={handleLogin}
+              disabled={isLoading}
+              className={`w-full py-4 mt-2 rounded-2xl font-bold text-white transition-all duration-300 shadow-xl ${
+                isLoading 
+                ? "bg-gray-400 cursor-not-allowed shadow-none" 
+                : "bg-gradient-to-r from-purple-600 to-indigo-600 shadow-purple-200 hover:shadow-purple-300 hover:translate-y-[-2px] active:translate-y-[1px]"
+              }`}
+            >
+              {isLoading ? "Authenticating..." : "Access Dashboard"}
+            </button>
+          </div>
+
+          {/* Social Divider */}
+          <div className="flex items-center gap-4 my-9">
+            <div className="flex-1 h-[1px] bg-gray-100" />
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] whitespace-nowrap">
+              Or connect with
+            </span>
+            <div className="flex-1 h-[1px] bg-gray-100" />
+          </div>
+
+          {/* Social Buttons */}
+          <div className="flex gap-4">
+            <button className="flex-1 flex items-center justify-center gap-2 border border-gray-100 py-3.5 rounded-xl hover:bg-gray-50 hover:border-gray-200 transition-all text-sm font-bold text-gray-600">
+               Google
+            </button>
+            <button className="flex-1 flex items-center justify-center gap-2 border border-gray-100 py-3.5 rounded-xl hover:bg-gray-50 hover:border-gray-200 transition-all text-sm font-bold text-gray-600">
+               Apple
+            </button>
+          </div>
+
+          {/* Footer Link */}
+          <p className="text-sm text-center mt-10 text-gray-500 font-semibold">
+            New here?{" "}
+            <span
+              className="text-purple-600 font-black cursor-pointer hover:underline underline-offset-4 decoration-2"
+              onClick={() => navigate("/signup")}
+            >
+              Create account
+            </span>
+          </p>
         </div>
-        <input
-          type="password"
-          placeholder="••••••••"
-          className="w-full mt-1 mb-4 px-4 py-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        {/* Checkbox */}
-        <div className="flex items-center gap-2 mb-5">
-          <input type="checkbox" className="accent-green-500" />
-          <span className="text-sm text-gray-500">
-            Stay signed in for 30 days
-          </span>
-        </div>
-
-        {/* Button */}
-        <button
-          onClick={handleLogin}
-          className="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-lg font-semibold transition"
-        >
-          Sign In
-        </button>
-
-        {/* Divider */}
-        <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-xs text-gray-400">OR CONTINUE WITH</span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </div>
-
-        {/* Social Buttons */}
-        <div className="flex gap-3">
-          <button className="w-full border rounded-lg py-2 text-sm">
-            Google
-          </button>
-          <button className="w-full border rounded-lg py-2 text-sm">
-            Apple
-          </button>
-        </div>
-
-        {/* Signup */}
-        <p className="text-sm text-center mt-6 text-gray-500">
-          Don’t have an account?{" "}
-          <span
-            className="text-purple-500 font-medium cursor-pointer"
-            onClick={() => navigate("/signup")}
-          >
-            Create account
-          </span>
-        </p>
       </div>
     </div>
   );
