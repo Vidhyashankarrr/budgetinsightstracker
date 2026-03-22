@@ -53,13 +53,19 @@ const Sidebar = () => {
         ))}
       </div>
 
-      {/* Logout */}
+      {/* Logout
       <button
         onClick={handleLogout}
-        className="mt-auto text-red-300 hover:text-red-500"
+        className="mt-auto text-red-300 hover:text-red-500 "
       >
         Logout
-      </button>
+      </button> */}
+      <button
+  onClick={handleLogout}
+  className="mt-auto text-left px-4 py-2 rounded-lg transition hover:bg-purple-500"
+>
+  Logout
+</button>
     </div>
   );
 };

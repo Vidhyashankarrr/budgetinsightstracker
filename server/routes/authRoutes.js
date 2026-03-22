@@ -13,13 +13,13 @@
 const express = require("express");
 const router = express.Router();
 
-// ✅ IMPORT CONTROLLERS (VERY IMPORTANT)
+//  IMPORT CONTROLLERS (VERY IMPORTANT)
 const {
   registerUser,
   loginUser,
 } = require("../controllers/authController");
 
-// ✅ ROUTES
+//  ROUTES
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
 
